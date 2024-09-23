@@ -1,7 +1,7 @@
-let nombre = prompt ("Ingrese su nombre")
-let documento = prompt ("Ingrese su numero de documento")
-
-
+function saveUserData(name, document) {
+    localStorage.setItem('name', nombre);
+    localStorage.setItem('document', documento)
+}
 const servicios = [
     ["Manicuria semipermanente", 10000],
     ["Esculpidas en el", 15000],
