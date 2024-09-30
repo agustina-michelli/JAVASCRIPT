@@ -1,31 +1,59 @@
+
+//primero: quiero que el usuario ingrese su nombre y su documento 
+//segundo: que lo envie a una pagina donde pueda ver los servicios con sus precios
+// tercero: que clickee los servicios y haga una suma de ellos 
+
+
 function saveUserData(name, document) {
-    localStorage.setItem('name', nombre);
-    localStorage.setItem('document', documento)
+    localStorage.setItem('name', name);
+    localStorage.setItem('document', document);
 }
+
+function loadUserData() {
+    const name = localStorage.getItem('name');
+    const document = localStorage.getItem('document');
+}
+
 const servicios = [
-    ["Manicuria semipermanente", 10000],
-    ["Esculpidas en el", 15000],
-    ["Soft gel", 15000],
-    ["Belleza de pies", 10000],
-    ["Tratamiento facial", 20000],
-    ["Laminado de cejas", 10000],
-    ["Perfilado de cejas", 8000],
+    {
+        id: "manicuria semipermanente",
+        precio: 10000
+    },
+    {
+        id: "gelificadas",
+        precio: 15000
+    },
+    {
+        id: "soft gel",
+        precio: 15000
+    },
+    {
+        id: "belleza de pies",
+        precio: 10000
+    },
+    {
+        id: "tratamiento faciales",
+        precio: 20000
+    },
+    {
+        id: "laminado de cejas",
+        precio: 10000
+    },
+    {
+        id: "perfilado de cejas",
+        precio: 8000
+    }
 ];
 
-let saldoFinal = 0;
+servicios.forEach((element)=>console.log(element));
 
-const pagoConTarjeta = true; // si el false lleva a la pagina de pago directo
+fuction actualizarCarrito(){
+    const servicioDiv = document.createElement('div')
+    servicioDiv.innerHTML = `
+        <h2>${servicio.manicuriasermipermanete}</h2>
+        <p>precio: $$ {servicio.10000}</p>
+        <button class= "agregar-servicio" data-id"${servicio.manicuriasermipermanete}>Agregar servicio</button>
+        `;
 
-for (const servicio of servicios) {
-    let precio = servicio[1];
-
-    if (pagoConTarjeta) {
-        precio *= 1.10; // Incrementa el precio en un 10%
-    }
-
-    saldoFinal += precio;
-
-    console.log(`Servicio: ${servicio[0]} - Precio final: $${precio.toFixed(2)}`);
 }
 
-console.log("El saldo final es de: $" + saldoFinal.toFixed(2));
