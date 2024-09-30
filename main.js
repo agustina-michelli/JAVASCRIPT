@@ -16,44 +16,90 @@ function loadUserData() {
 
 const servicios = [
     {
-        id: "manicuria semipermanente",
-        precio: 10000
+        nombre: "manicuria semipermanente",
+        precio:  10000 ,
+        id: "manicuria semipermanente"
     },
-    {
-        id: "gelificadas",
-        precio: 15000
+    {   nombre: "gelificadas",
+        precio: 15000 ,
+        id: "gelificadas"
     },
-    {
-        id: "soft gel",
-        precio: 15000
+    {   nombre: "manicuria",
+        precio: 15000 ,
+        id: "soft gel"
     },
-    {
+    {   nombre: "belleza de pies",
+        precio: 10000 ,
         id: "belleza de pies",
-        precio: 10000
     },
-    {
-        id: "tratamiento faciales",
-        precio: 20000
+    {   nombre: "tratamientos faciales",
+        precio: 20000 ,
+        id: "tratamiento faciales"
     },
-    {
-        id: "laminado de cejas",
-        precio: 10000
+    {   nombre: "laminado de cejas",
+        precio: 10000 ,
+        id: "laminado de cejas"
     },
-    {
-        id: "perfilado de cejas",
-        precio: 8000
+    {   nombre: "perfilado de cejas",
+        precio: 8000 ,
+        id: "perfilado de cejas"
     }
 ];
 
-servicios.forEach((element)=>console.log(element));
+const listaDePrecios = document.getElementById("lista-de-precios");
+servicios.forEach(servicio => {
+    let contenedor = document.createElement("div");
+    contenedor.className = "card"; 
 
-fuction actualizarCarrito(){
-    const servicioDiv = document.createElement('div')
-    servicioDiv.innerHTML = `
-        <h2>${servicio.manicuriasermipermanete}</h2>
-        <p>precio: $$ {servicio.10000}</p>
-        <button class= "agregar-servicio" data-id"${servicio.manicuriasermipermanete}>Agregar servicio</button>
-        `;
+    contenedor.innerHTML = `
+        <h3>${servicio.nombre}</h3>
+        <p>Precio: $${servicio.precio}</p>
+        <button class="agregar-servicio" data-id="${servicio.id}">Agregar servicio</button>
+    `;
 
+    
+    listaDePrecios.appendChild(contenedor);
+});
+
+window.onload = function() {
+        inicializarBotones();
+};
+
+function inicializarBotones() {
+    const botonesAgregar = document.querySelectorAll('.agregarservicio');
+    botonesAgregar.forEach(boton => {
+        boton.addEventListener('click', agregarServicio);
+    });
 }
 
+function agregarServicio(event) {
+    const servicioElement = event.target.closest('.servicios');
+    const id = servicioElement.getAttribute('data-id');
+    const nombre = servicioElement.getAttribute('data-name');
+    const precio = parseFloat(servicioElement.getAttribute('data-precio'));
+
+
+    const servicioExistente = carrito.find(servicio => servicio.id === id);
+
+    if (!servicioExistente) {
+        
+        carrito.push({ id, nombre, precio });
+        actualizarTotal();
+        mostrarCarrito();
+    }
+}
+function actualizarTotal() {
+    let total = 0;
+
+    carrito.forEach(servicio => {
+        total += servicio.precio;
+    });
+
+    document.getElementById('totaldeServicios').textContent = total;
+}
+
+
+function eliminarServicio(id) {
+    carrito = carrito.filter(servicio => servicio.id !== id);
+    mostrarCarrito();
+}
